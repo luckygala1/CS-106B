@@ -1,0 +1,58 @@
+# ----------------------
+# 编译产物 (Build Output)
+# ----------------------
+# 忽略编译生成的对象文件
+*.o
+*.obj
+
+# 忽略可执行文件 (Windows/Mac/Linux)
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+*.app
+
+# ----------------------
+# Qt / QMake 特有文件
+# ----------------------
+# 忽略 Qt Creator 的本地用户配置文件 (非常重要，这个文件包含你本地的绝对路径)
+*.pro.user
+*.pro.user.*
+
+# 忽略构建过程中生成的 Makefile
+Makefile
+Makefile.Debug
+Makefile.Release
+
+# 忽略 Qt 自动生成的中间代码
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+object_script.*
+
+# ----------------------
+# 构建目录
+# ----------------------
+# 忽略常见的构建输出文件夹
+build/
+debug/
+release/
+# 忽略 Qt Creator 生成的影子构建目录 (Shadow build directories)
+*-build-*
+
+# ----------------------
+# 操作系统生成的文件
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# 编辑器/IDE 配置
+# ----------------------
+# 如果你使用 VS Code
+.vscode/
+
+# 如果你使用 CLion/IntelliJ
+.idea/
+cmake-build-debug/
