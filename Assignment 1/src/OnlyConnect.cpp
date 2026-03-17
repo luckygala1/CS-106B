@@ -6,13 +6,25 @@
  */
 #include "OnlyConnect.h"
 #include "GUI/SimpleTest.h"
+#include <cctype>
+#include <string>
+#include "strlib.h"
 using namespace std;
+
+string target = "aeiouAEIOU";
+string help(string a){
+    if (a.empty()){ return "";}
+    else  if(isalpha(a[0]) && a.find(target)== -1){
+        return help(toUpperCase(a[0])+a.substr(1));
+    }
+    return help(a.substr(1));
+}
 
 string onlyConnectize(string phrase) {
     /* TODO: The next few lines just exist to make sure you don't get compiler warning messages
      * when this function isn't implemented. Delete these lines, then implement this function.
      */
-    (void) phrase;
+    help(phrase);
     return "";
 }
 
@@ -37,6 +49,14 @@ PROVIDED_TEST("Handles single-character inputs.") {
     EXPECT_EQUAL(onlyConnectize("A"), "");
     EXPECT_EQUAL(onlyConnectize("+"), "");
     EXPECT_EQUAL(onlyConnectize("Q"), "Q");
+}
+
+STUDENT_TEST("CUSTOMSIZE TEST CASE") {
+    EXPECT_EQUAL(onlyConnectize("YYY"), "YYY");
+    EXPECT_EQUAL(onlyConnectize("-----"), "");
+    EXPECT_EQUAL(onlyConnectize("abc"), "BC");
+    EXPECT_EQUAL(onlyConnectize("!@##**(("), "");
+    EXPECT_EQUAL(onlyConnectize("lllll"), "LLLLL");
 }
 
 /* TODO: You will need to add your own tests into this suite of test cases. Think about the sorts
