@@ -11,6 +11,7 @@
 #include "strlib.h"
 using namespace std;
 
+int test;
 string target = "aeiouAEIOU";
 string help(string a){
     if (a.empty()){ return "";}
@@ -19,6 +20,7 @@ string help(string a){
     }
     return help(a.substr(1));
 }
+
 
 string onlyConnectize(string phrase) {
     /* TODO: The next few lines just exist to make sure you don't get compiler warning messages
