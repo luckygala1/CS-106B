@@ -11,6 +11,7 @@
 #include "strlib.h"
 using namespace std;
 
+int a;
 string target = "aeiouAEIOU";
 string help(string a){
     if (a.empty()){ return "";}
