@@ -21,7 +21,7 @@ string help(string a){
     return help(a.substr(1));
 }
 
-
+int test2;
 string onlyConnectize(string phrase) {
     /* TODO: The next few lines just exist to make sure you don't get compiler warning messages
      * when this function isn't implemented. Delete these lines, then implement this function.
