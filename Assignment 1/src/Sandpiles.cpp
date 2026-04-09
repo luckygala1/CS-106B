@@ -1,4 +1,4 @@
-/* File: Sandpiles.cpp
+ /* File: Sandpiles.cpp
  *
  * TODO: Edit these comments to describe anything interesting or noteworthy in your implementation.
  */
@@ -7,15 +7,17 @@
 using namespace std;
 
 void dropSandOn(Grid<int>& world, int row, int col) {
-    /* TODO: Delete this line and the three after it, then implement this function. */
-    (void) world;
-    (void) row;
-    (void) col;
+    if (!world.inBounds(row, col))  return ;
+    world[row][col]+=1;
+    if(world[row][col] >=4)
+    {
+        world[row][col]-=4;
+        dropSandOn(world,row-1,col);
+        dropSandOn(world,row+1,col);
+        dropSandOn(world,row,col-1);
+        dropSandOn(world,row,col+1);
+    }
 }
-
-
-
-
 
 
 /* * * * * * Provided Test Cases * * * * * */
