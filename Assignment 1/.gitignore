@@ -38,6 +38,7 @@ object_script.*
 build/
 debug/
 release/
+.qtcreator/
 # 忽略 Qt Creator 生成的影子构建目录 (Shadow build directories)
 *-build-*
 
