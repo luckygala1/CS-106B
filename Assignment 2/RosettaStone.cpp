@@ -3,12 +3,21 @@
 using namespace std;
 
 Map<string, double> kGramsIn(const string& str, int kGramLength) {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void) str;
-    (void) kGramLength;
-    return {};
+    Map<string ,double> kGram;
+    if(kGramLength<=0)  error("length 0 ,incorrect");
+    if(str.size()<kGramLength) {
+        return kGram;
+    }
+    else {
+        for(int i=0;i+kGramLength <=str.length();i++){
+            string sub = str.substr(i,kGramLength);
+            kGram[sub]++;
+
+        }
+
+        return kGram;
+    }
+
 }
 
 Map<string, double> normalize(const Map<string, double>& input) {

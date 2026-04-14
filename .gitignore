@@ -1,0 +1,6 @@
+.DS_Store
+build/
+*.app/
+.qtcreator/
+*.pro.user
+CS106/
