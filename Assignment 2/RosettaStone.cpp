@@ -1,5 +1,6 @@
 #include "RosettaStone.h"
 #include "GUI/SimpleTest.h"
+#include <cmath>
 using namespace std;
 
 Map<string, double> kGramsIn(const string& str, int kGramLength) {
@@ -12,7 +13,6 @@ Map<string, double> kGramsIn(const string& str, int kGramLength) {
         for(int i=0;i+kGramLength <=str.length();i++){
             string sub = str.substr(i,kGramLength);
             kGram[sub]++;
-
         }
 
         return kGram;
@@ -21,11 +21,17 @@ Map<string, double> kGramsIn(const string& str, int kGramLength) {
 }
 
 Map<string, double> normalize(const Map<string, double>& input) {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void) input;
-    return {};
+    if(input.isEmpty())  error("empty map");
+    Map <string,double> normmap=input; //map可以直接赋值
+    double sum=0;
+    for(string str:input){
+        sum+= pow(input[str],2);
+    }
+    if (sum == 0) error("all zero ");   //直接平方和为0避免全0
+    for(string str:normmap){
+        normmap.put(str,input[str]/sqrt(sum));
+    }
+    return normmap;
 }
 
 Map<string, double> topKGramsIn(const Map<string, double>& source, int numToKeep) {
