@@ -1,5 +1,6 @@
 #include "RosettaStone.h"
 #include "GUI/SimpleTest.h"
+#include "priorityqueue.h"
 #include <cmath>
 using namespace std;
 
@@ -35,12 +36,37 @@ Map<string, double> normalize(const Map<string, double>& input) {
 }
 
 Map<string, double> topKGramsIn(const Map<string, double>& source, int numToKeep) {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void) source;
-    (void) numToKeep;
-    return {};
+    if(numToKeep <0 )  error("num <0");
+    int num=source.size()-numToKeep;
+    if(num<0) return source;
+    Map<string ,double> promap;
+    if(numToKeep == 0) return promap;
+    PriorityQueue<string> pq;
+    for(string str:source){
+        pq.enqueue(str,source[str]);
+    }
+    // for(int i =0;i<pq.size()-numToKeep;i++){ //pqsize随着for循环不断变化
+    //   pq.dequeue();
+    //}
+    //for(int i=0;i<pq.size();i++){
+    //      promap.put(pq.dequeue(),source[pq.dequeue()]); //两次deqeque导致取出的值不同
+    //}
+
+
+    while(pq.size()> numToKeep){pq.dequeue();}
+
+    // for(string str:source){               最优版本
+    //     pq.enqueue(str,source[str]);
+    //     if(pq.size()>numToKeep){
+    //         pq.dequeue();
+    //     }
+    // }
+    while(pq.size()>0) {
+        string str=pq.dequeue();
+        promap.put(str,source[str]);
+    }
+
+    return promap;
 }
 
 double cosineSimilarityOf(const Map<string, double>& lhs, const Map<string, double>& rhs) {
