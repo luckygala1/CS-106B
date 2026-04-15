@@ -70,12 +70,13 @@ Map<string, double> topKGramsIn(const Map<string, double>& source, int numToKeep
 }
 
 double cosineSimilarityOf(const Map<string, double>& lhs, const Map<string, double>& rhs) {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void) lhs;
-    (void) rhs;
-    return {};
+    double sum=0;
+    for(string str:lhs){
+        if(rhs.containsKey(str))  {
+             sum+= lhs[str]*rhs[str];
+        }
+    }
+    return sum;
 }
 
 string guessLanguageOf(const Map<string, double>& textProfile,
