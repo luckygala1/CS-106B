@@ -1,6 +1,7 @@
 #include "RosettaStone.h"
 #include "GUI/SimpleTest.h"
 #include "priorityqueue.h"
+#include "set.h"
 #include <cmath>
 using namespace std;
 
@@ -81,12 +82,17 @@ double cosineSimilarityOf(const Map<string, double>& lhs, const Map<string, doub
 
 string guessLanguageOf(const Map<string, double>& textProfile,
                        const Set<Corpus>& corpora) {
-    /* TODO: Delete this comment and the other lines here, then implement
-     * this function.
-     */
-    (void) textProfile;
-    (void) corpora;
-    return "";
+    if(corpora.isEmpty()) error("corpus is empty");
+    double highest=-1;  //cos范围最低-1
+    string bestname;
+    for (Corpus curretcorpora:corpora){
+        double current = cosineSimilarityOf(textProfile,curretcorpora.profile);
+        if(current>=highest){
+            highest=current;
+            bestname=curretcorpora.name;
+        }
+    }
+    return bestname;
 }
 
 
