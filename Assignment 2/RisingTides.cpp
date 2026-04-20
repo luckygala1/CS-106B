@@ -3,14 +3,33 @@
 #include "queue.h"
 using namespace std;
 
-Grid<bool> floodedRegionsIn(const Grid<double>& terrain,
-                            const Vector<GridLocation>& sources,
-                            double height) {
-    /* TODO: Delete this line and the next four lines, then implement this function. */
-    (void) terrain;
-    (void) sources;
-    (void) height;
-    return {};
+
+
+
+Grid<bool> floodedRegionsIn(const Grid<double>& terrain,const Vector<GridLocation>& sources, double height)
+{
+    Queue<GridLocation> sourceque;
+    Grid <bool> flood(terrain.numRows(),terrain.numCols());
+    int dRow[] = {-1,1,0,0};
+    int dCol[] = {0,0,-1,1};
+    for(GridLocation locate:sources){
+        if(terrain[locate]<=height){
+            sourceque.enqueue(locate);
+            flood[locate]=true;
+        }
+    }
+    while (!sourceque.isEmpty()){
+        GridLocation top=sourceque.dequeue();
+        for (int i=0; i<4;i++){
+            int nextrow = top.row+dRow[i];
+            int nextcol = top.col+dCol[i];
+            if(terrain.inBounds(nextrow,nextcol)&&flood[nextrow][nextcol]==false &&terrain[nextrow][nextcol]<=height){
+                flood[nextrow][nextcol]=true;
+                sourceque.enqueue({nextrow,nextcol});
+            }
+        }
+    }
+    return flood;
 }
 
 
