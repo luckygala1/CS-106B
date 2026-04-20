@@ -4,3 +4,4 @@ build/
 .qtcreator/
 *.pro.user
 CS106/
+.qtcreator/
