@@ -1,10 +1,12 @@
 #include "HumanPyramids.h"
 #include "error.h""
+#include "grid.h"
 using namespace std;
 
 /* TODO: Refer to HumanPyramids.h for more information about what this function should do.
  * Then, delete this comment.
  */
+/*   未使用记忆器版本
 double weightOnBackOf(int row, int col, int pyramidHeight) {
     if(row<0 || col<0 || row<col || row >=  pyramidHeight)
         error("invaild position");
@@ -18,8 +20,35 @@ double weightOnBackOf(int row, int col, int pyramidHeight) {
         return (weightOnBackOf(row-1,col-1,pyramidHeight)/2+80)+(weightOnBackOf(row-1,col,pyramidHeight)/2+80);
     }
 }
+*/
 
+double help(int row, int col, int pyramidHeight,Grid<double>&map){
+    if(row<0 || col<0 || row<col || row >=  pyramidHeight)
+        error("invaild position");
+    if(row ==0 && col ==0)  {
+        map[row][col]=0;
+        return 0;
+    }
+    if (map[row][col]!=-1) return map[row][col];
+    else {
+        double result;
+        if(col==0)
+            result= (help(row-1,col,pyramidHeight,map)/2+80);
 
+        else if(row==col)
+            result =(help(row-1,col-1,pyramidHeight,map)/2+80);
+        else
+            result=(help(row-1,col-1,pyramidHeight,map)/2+80)+(help(row-1,col,pyramidHeight,map)/2+80);
+        map[row][col]=result;
+        return result;
+    }
+}
+
+//使用记忆器版本
+double weightOnBackOf(int row, int col, int pyramidHeight) {
+    Grid<double> map (pyramidHeight,pyramidHeight,-1);  //-1初始化grid
+    return help(row,col,pyramidHeight,map);
+}
 
 
 
@@ -62,8 +91,6 @@ PROVIDED_TEST("Stress test: Memoization is implemented (should take under a seco
      * line immediately after this one - the one that starts with SHOW_ERROR - once
      * you have implemented memoization to test whether it works correctly.
      */
-    SHOW_ERROR("This test is configured to always fail until you delete this line from\n         HumanPyramids.cpp. Once you have implemented memoization and want\n         to check whether it works correctly, remove the indicated line.");
-
     /* Do not delete anything below this point. :-) */
 
     /* This will take a LONG time to complete if memoization isn't implemented.
