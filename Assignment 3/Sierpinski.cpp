@@ -34,7 +34,6 @@ void drawSierpinskiTriangle(GWindow& window,
         // 计算中点
         double mid01_x = (x0 + x1) / 2.0;
         double mid01_y = (y0 + y1) / 2.0;
-
         double mid12_x = (x1 + x2) / 2.0;
         double mid12_y = (y1 + y2) / 2.0;
 
