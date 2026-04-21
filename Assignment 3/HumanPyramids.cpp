@@ -1,15 +1,22 @@
 #include "HumanPyramids.h"
+#include "error.h""
 using namespace std;
 
 /* TODO: Refer to HumanPyramids.h for more information about what this function should do.
  * Then, delete this comment.
  */
 double weightOnBackOf(int row, int col, int pyramidHeight) {
-    /* TODO: Delete the next few lines and implement this function. */
-    (void) row;
-    (void) col;
-    (void) pyramidHeight;
-    return 0;
+    if(row<0 || col<0 || row<col || row >=  pyramidHeight)
+        error("invaild position");
+    if(row ==0 && col ==0)  return 0;
+    else{
+        if(col==0)
+            return (weightOnBackOf(row-1,col,pyramidHeight)/2+80);
+        if(row==col)
+            return (weightOnBackOf(row-1,col-1,pyramidHeight)/2+80);
+        else
+        return (weightOnBackOf(row-1,col-1,pyramidHeight)/2+80)+(weightOnBackOf(row-1,col,pyramidHeight)/2+80);
+    }
 }
 
 
