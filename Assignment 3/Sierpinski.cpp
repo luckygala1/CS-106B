@@ -28,10 +28,22 @@ void drawSierpinskiTriangle(GWindow& window,
                             double x1, double y1,
                             double x2, double y2,
                             int order) {
-    /* TODO: Delete this comment, these next lines of code, and implement this function. */
-    (void) window;
-    (void) x0; (void) y0;
-    (void) x1; (void) y1;
-    (void) x2; (void) y2;
-    (void) order;
+    if(order<0) error ("parameter not correct");
+    if(order==0)  drawTriangle(window,x0,y0,x1,y1,x2,y2);
+    else {
+        // 计算中点
+        double mid01_x = (x0 + x1) / 2.0;
+        double mid01_y = (y0 + y1) / 2.0;
+
+        double mid12_x = (x1 + x2) / 2.0;
+        double mid12_y = (y1 + y2) / 2.0;
+
+        double mid20_x = (x2 + x0) / 2.0;
+        double mid20_y = (y2 + y0) / 2.0;
+
+        // 递归画 3 个下一阶的谢尔宾斯基三角形
+        drawSierpinskiTriangle(window, x0, y0, mid01_x, mid01_y, mid20_x, mid20_y, order - 1);
+        drawSierpinskiTriangle(window, x1, y1, mid01_x, mid01_y, mid12_x, mid12_y, order - 1);
+        drawSierpinskiTriangle(window, x2, y2, mid12_x, mid12_y, mid20_x, mid20_y, order - 1);
+    }
 }
