@@ -22,7 +22,7 @@ double weightOnBackOf(int row, int col, int pyramidHeight) {
 }
 */
 
-double help(int row, int col, int pyramidHeight,Grid<double>&map){
+double help(int row, int col, int pyramidHeight,Grid<double>&map){  //必须使用引用传递，值传递每次调用都需要复制
     if(row<0 || col<0 || row<col || row >=  pyramidHeight)
         error("invaild position");
     if(row ==0 && col ==0)  {

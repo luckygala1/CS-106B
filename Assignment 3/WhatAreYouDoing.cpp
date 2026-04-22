@@ -1,4 +1,8 @@
 #include "WhatAreYouDoing.h"
+#include <cctype>
+#include "set.h"
+#include "vector.h"
+#include "strlib.h"
 using namespace std;
 
 /* TODO: Read the comments in WhatAreYouDoing.h to see what this function needs to do, then
@@ -7,11 +11,28 @@ using namespace std;
  * Don't forget about the tokenize function defined in WhatAreYouDoing.h; you'll almost
  * certainly want to use it.
  */
-Set<string> allEmphasesOf(const string& sentence) {
-    /* TODO: Delete this line and the next one, then implement this function. */
-    (void) sentence;
-    return {};
+
+//已经引用传递&，只需要void即可
+void  help(Set<string> &sentence , Vector<string> & token,int index,string str){
+    if(index==token.size()) { sentence.add(str); return ;}
+    if(!isalpha(token[index][0]))  {str+=token[index]; help(sentence,token,index+1,str);}
+    else if(isalpha(token[index][0])){
+        string str1 = str+toLowerCase(token[index]);
+        help(sentence,token,index+1,str1);
+        string str2 = str+toUpperCase(token[index]);
+        help(sentence,token,index+1,str2);
+    }
 }
+
+
+Set<string> allEmphasesOf(const string& sentence) {
+    Vector<string> token =tokenize(sentence);
+    Set<string> mystring;
+     help(mystring,token,0,"");
+    return mystring;
+}
+
+
 
 /* * * * * * Test Cases * * * * * */
 #include "GUI/SimpleTest.h"
