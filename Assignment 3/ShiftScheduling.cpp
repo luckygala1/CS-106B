@@ -35,7 +35,7 @@ Set<Shift> help(Set<Shift> &chosenshifts, Set<Shift> remainshifts, int lefthours
     if(lefthours>=lengthOf(now)&&!hasOverlap(now,chosenshifts)){
         chosenshifts.add(now);
         optionWith=help(chosenshifts,remainshifts,lefthours-lengthOf(now));
-        chosenshifts.remove(now);
+        chosenshifts.remove(now);            //这一层的递归执行完后到这里然后给上一层的递归
     }
     if (totalValueOf(optionWith) > totalValueOf(optionWithout)) {
         return optionWith;
