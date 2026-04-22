@@ -28,7 +28,7 @@ void  help(Set<string> &sentence , Vector<string> & token,int index,string str){
 Set<string> allEmphasesOf(const string& sentence) {
     Vector<string> token =tokenize(sentence);
     Set<string> mystring;
-     help(mystring,token,0,"");
+    help(mystring,token,0,"");
     return mystring;
 }
 

@@ -1,14 +1,56 @@
 #include "ShiftScheduling.h"
+#include "error.h"
 using namespace std;
 
 /* TODO: Refer to ShiftScheduling.h for more information about what this function should do.
  * Then, delete this comment and replace it with one of your own.
  */
+
+
+int totalValueOf(const Set<Shift>& schedule) {
+    int total = 0;
+    for (Shift s : schedule) {
+        total += valueOf(s);
+    }
+    return total;
+}
+
+bool hasOverlap(const Shift& newShift, const Set<Shift>& schedule) {
+    for (Shift s : schedule) {
+        if (overlapsWith(newShift, s)) {
+            return true; // 只要跟其中任何一个冲突，就返回 true
+        }
+    }
+    return false; // 全都不冲突
+}
+
+Set<Shift> help(Set<Shift> &chosenshifts, Set<Shift> remainshifts, int lefthours){
+    if(remainshifts.isEmpty())  return chosenshifts;
+    Shift now =remainshifts.first();
+    remainshifts.remove(now);
+    // 分支 A：我决定【不选】这个班次
+    Set<Shift> optionWithout = help(chosenshifts, remainshifts, lefthours);
+    // 分支 B：我决定【选】这个班次 (Take it)
+    Set<Shift> optionWith; // 用来装选了它的结果
+    if(lefthours>=lengthOf(now)&&!hasOverlap(now,chosenshifts)){
+        chosenshifts.add(now);
+        optionWith=help(chosenshifts,remainshifts,lefthours-lengthOf(now));
+        chosenshifts.remove(now);
+    }
+    if (totalValueOf(optionWith) > totalValueOf(optionWithout)) {
+        return optionWith;
+    } else {
+        return optionWithout;
+    }
+
+}
+
+
+
 Set<Shift> highestValueScheduleFor(const Set<Shift>& shifts, int maxHours) {
-    /* TODO: Delete the next few lines and implement this function. */
-    (void) shifts;
-    (void) maxHours;
-    return {};
+    if(maxHours<0) error("invalid work time");
+    Set<Shift>bestschedule;
+    return help(bestschedule,shifts,maxHours);
 }
 
 
